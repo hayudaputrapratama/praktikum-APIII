@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('mahasiswas', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('prodis_id')->constrained('prodis')->onDelete('cascade');
             $table->string('nama_mahasiswa'); // Nama lengkap mahasiswa
             $table->string('nim')->unique(); // Nomor Induk Mahasiswa, harus unik
             $table->text('alamat')->nullable(); // Alamat (bisa panjang dan boleh kosong)

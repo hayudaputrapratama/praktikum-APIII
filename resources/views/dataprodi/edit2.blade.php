@@ -7,8 +7,9 @@
 
     <!-- Page Heading -->
     <h1 class="h3 text-gray-800">
-        <i class="fas fa-fw fa-graduation-cap fa-fw text-info me-2"></i> Tambah Data Prodi
+        <i class="fas fa-fw fa-graduation-cap fa-fw text-info me-2"></i> Edit Data Prodi
     </h1>
+
 
     <div class="card shadow mb-4">
         <div class="card-header py-3 bg-info text-white">
@@ -17,14 +18,15 @@
         </div>
 
         <div class="card-body">
-            <form action="{{ route('prodi.store') }}" method="POST">
+            <form action="{{ route('dataprodi.update', $prodis->id) }}" method="POST">
                 @csrf
+                @method('PUT')
                 <div class="row">
                     <!-- Kode Prodi -->
                     <div class="col-md-6 mb-3">
                         <label for="kode_prodi" class="form-label fw-semibold">Kode Prodi</label>
                         <input type="text" class="form-control @error('kode_prodi') is-invalid @enderror" name="kode_prodi" id="kode_prodi"
-                            placeholder="Masukkan Kode Prodi" value="{{ old('kode_prodi') }}" required>
+                            placeholder="Masukkan Kode Prodi" value="{{ old('kode_prodi', $prodis->kode_prodi) }}" required>
                         @error('kode_prodi')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -36,7 +38,7 @@
                     <div class="col-md-6 mb-3">
                         <label for="nama_prodi" class="form-label fw-semibold">Nama Prodi</label>
                         <input type="text" class="form-control @error('nama_prodi') is-invalid @enderror" name="nama_prodi" id="nama_prodi"
-                            placeholder="Masukkan Nama Prodi" value="{{ old('nama_prodi') }}" required>
+                            placeholder="Masukkan Nama Prodi" value="{{ old('nama_prodi', $prodis->nama_prodi) }}" required>
                         @error('nama_prodi')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -47,7 +49,8 @@
                     <!-- Jenjang Prodi -->
                     <div class="col-md-6 mb-3">
                         <label for="jenjang_prodi" class="form-label fw-semibold">Jenjang Prodi</label>
-                        <select class="form-control @error('jenjang_prodi') is-invalid @enderror" name="jenjang_prodi" id="jenjang_prodi" required>
+                        <select class="form-control @error('jenjang_prodi') is-invalid @enderror" name="jenjang_prodi" id="jenjang_prodi" 
+                        value="{{ old('jenjang_prodi', $prodis->jenjang_prodi) }}" required>
                         @error('jenjang_prodi')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -66,7 +69,7 @@
                     <div class="col-md-6 mb-3">
                         <label for="jumlah_mahasiswa" class="form-label fw-semibold">Jumlah Mahasiswa</label>
                         <input type="number" class="form-control @error('jumlah_mahasiswa') is-invalid @enderror" name="jumlah_mahasiswa" id="jumlah_mahasiswa"
-                            placeholder="Masukkan Jumlah Mahasiswa" value="{{ old('jumlah_mahasiswa') }}" required>
+                            placeholder="Masukkan Jumlah Mahasiswa" value="{{ old('jumlah_mahasiswa', $prodis->jumlah_mahasiswa) }}" required>
                         @error('jumlah_mahasiswa')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -78,7 +81,7 @@
                     <div class="col-md-6 mb-4">
                         <label for="jumlah_dosen" class="form-label fw-semibold">Jumlah Dosen</label>
                         <input type="number" class="form-control @error('jumlah_dosen') is-invalid @enderror" name="jumlah_dosen" id="jumlah_dosen"
-                            placeholder="Masukkan Jumlah Dosen" value="{{ old('jumlah_dosen') }}" required>
+                            placeholder="Masukkan Jumlah Dosen" value="{{ old('jumlah_dosen', $prodis->jumlah_dosen) }}" required>
                         @error('jumlah_dosen')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -87,19 +90,13 @@
                     </div>
                 </div>
 
-
-                <!--nama fakultas-->
-               
-
-                
-
                 <!-- Tombol Aksi -->
                 <div class="d-flex justify-content-end">
                     <a href=" {{ route('dataprodi.index') }}" class="btn btn-secondary me-2">
                         <i class="fas fa-arrow-left"></i> Kembali
                     </a>
                     <button type="submit" class="btn btn-success">
-                        <i class="fas fa-save"></i> Simpan Data
+                        <i class="fas fa-save"></i> Edit Data
                     </button>
                 </div>
             </form>

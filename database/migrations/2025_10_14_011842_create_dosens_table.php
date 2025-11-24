@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('dosens', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('prodis_id')->constrained('prodis')->onDelete('cascade');
             $table->string('nidn')->unique(); // Nomor Induk Dosen Nasional
             $table->string('nama'); // Nama dosen
             $table->string('jenis_kelamin'); // Jenis kelamin

@@ -16,4 +16,8 @@ class Prodi extends Model
         'jumlah_mahasiswa',
         'jumlah_dosen',
     ];
+    public function fakultas()
+    {
+        return $this->belongsTo(Fakultas::class);
+    }
 }

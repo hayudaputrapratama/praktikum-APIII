@@ -2,103 +2,86 @@
 
 @section('content')
 
-    <!-- DataTales Example -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Data Dosen</h1>
-            <a href="{{ route('datadosen.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                class="fas fa-download fa-sm text-white-50"></i>Tambah Data</a>
+<div class="container-fluid">
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 text-gray-800">
+            <i class="fas fa-chalkboard-teacher fa-fw text-info"></i> Data Dosen
+        </h1>
+        <a href="{{ route('datadosen.create') }}" class="btn btn-info btn-sm shadow-sm">
+            <i class="fas fa-plus fa-sm text-white-50"></i> Tambah Data Dosen
+        </a>
     </div>
 
-<div class="container-fluid">
-    
 
-    <div class="card shadow mb-4">
+    <!-- Card Table -->
+    <div class="card border-0 shadow-sm rounded-4">
+        <div class="card-header bg-info text-white fw-semibold rounded-top-4">
+            Halaman ini digunakan untuk mengelola data dosen.
+        </div>
         <div class="card-body">
-            <p>Halaman ini digunakan untuk mengelola data dosen.</p>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>NIDN</th>
-                        <th>Nama</th>
-                        <th>Jenis Kelamin</th>
-                        <th>Homebase</th>
-                        <th>Pendidikan</th>
-                        <th>Mata Kuliah Keahlian</th>
-                        <th>Jabatan Fungsional</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>1004059702</td>
-                        <td>Ir. HIDAYATI RUSNEDY S.T, M.Kom</td>
-                        <td>Wanita</td>
-                        <td>TEKNIK INFORMATIKA</td>
-                        <td>S2</td>
-                        <td>Decision Support System, Data MIning</td>
-                        <td>Asisten Ahli (150.00) / Instructor</td>
-                        <td>
-                            <button class="btn btn-warning btn-sm">Edit</button>
-                            <button class="btn btn-danger btn-sm">Hapus</button>
-                        </td>
-                    </tr>
-                </tbody>
-
-            <tbody>
-                    <tr>
-                        <td>2</td>
-                        <td>1026067802</td>
-                        <td>SAFNI MARWA S.T, M.Sc.E.</td>
-                        <td>Wanita</td>
-                        <td>TEKNIK INFORMATIKA</td>
-                        <td>S2</td>
-                        <th>Software Engineering</th>
-                        <td>Lektor (200.00) / Assistant Professor</td>
-                        <td>
-                            <button class="btn btn-warning btn-sm">Edit</button>
-                            <button class="btn btn-danger btn-sm">Hapus</button>
-                        </td>
-                    </tr>
-                </tbody>
-
-            <tbody>
-                    <tr>
-                        <td>3</td>
-                        <td>1021109102</td>
-                        <td>Ir. R. JOKO MUSRIDHO S.T, M.Phil</td>
-                        <td>Pria</td>
-                        <td>TEKNIK INFORMATIKA</td>
-                        <td>S2</td>
-                        <th>Kecerdasan Buatan</th>
-                        <td>Asisten Ahli (150.00) / Instructor</td>
-                        <td>
-                            <button class="btn btn-warning btn-sm">Edit</button>
-                            <button class="btn btn-danger btn-sm">Hapus</button>
-                        </td>
-                    </tr>
-                </tbody>
-
-                <tbody>
-                    <tr>
-                        <td>4</td>
-                        <td>1005088602</td>
-                        <td>DEDDY GUSMAN S.Kom, M.T.I</td>
-                        <td>Pria</td>
-                        <td>TEKNIK INFORMATIKA</td>
-                        <td>S2</td>
-                        <th>Dasar Pemrograman, Pemrograman Web</th>
-                        <td>Lektor (300.00) / Assistant Professor</td>
-                        <td>
-                            <button class="btn btn-warning btn-sm">Edit</button>
-                            <button class="btn btn-danger btn-sm">Hapus</button>
-                        </td>
-                    </tr>
-                </tbody>
-                
-            </table>
+            <div class="table-responsive">
+                <table class="table table-bordered align-middle text-center">
+                    <thead class="table-info">
+                        <tr>
+                            <th>No</th>
+                            <th>NIDN</th>
+                            <th>Nama</th>
+                            <th>Jenis Kelamin</th>
+                            <th>Homebase</th>
+                            <th>Pendidikan</th>
+                            <th>Mata Kuliah Keahlian</th>
+                            <th>Jabatan Fungsional</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center">
+                    @foreach($dosen as $item)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{$item->nidn}}</td>
+                            <td >{{$item->nama}}</td>
+                            <td>{{$item->jenis_kelamin}}</td>
+                            <td>{{$item->homebase}}</td>
+                            <td>{{$item->pendidikan}}</td>
+                            <td>{{$item->mata_kuliah_keahlian}}</td>
+                            <td>{{$item->jabatan_fungsional}}</td>
+                            <td>
+                                <a href="{{ route('datadosen.edit', $item->id) }}" class="btn btn-sm btn-info me-1">
+                                    <i class="fas fa-edit fa-sm text-white-50"></i> Edit
+                                </a>
+                                <form action="{{ route('datadosen.destroy', $item->id) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-info" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                        <i class="fas fa-trash-alt text-white-50"></i> Hapus
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                       
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
+
+<!-- Custom Table Styling -->
+<style>
+    .table th {
+        vertical-align: middle !important;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #f8f9fc;
+        transition: 0.2s;
+    }
+
+    .card {
+        border-radius: 1rem;
+    }
+</style>
 @endsection
